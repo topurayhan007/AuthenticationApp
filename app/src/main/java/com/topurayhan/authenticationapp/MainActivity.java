@@ -22,10 +22,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInApi;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -49,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     FirebaseAuth mAuth;
 
-    private static final int REQ_ONE_TAP = 2;  // Can be any integer unique to the Activity.
-    private final boolean showOneTapUI = true;
 
     @Override
     public void onStart() {
@@ -64,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "CutPasteId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,81 +117,9 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
-        createRequest();
-        option1 = findViewById(R.id.option1);
-        option1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // call something to work
-            }
-
-        });
-
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        SignInClient oneTapClient = null;
-        if (requestCode == REQ_ONE_TAP) {
-            try {
-
-                assert false;
-                SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(data);
-                String idToken = credential.getGoogleIdToken();
-                if (idToken != null) {
-                    // Got an ID token from Google. Use it to authenticate
-                    // with Firebase.
-                    Log.d("TAG", "Got ID token.");
-                }
-            } catch (ApiException e) {
-                // ...
-            }
-        }
-        SignInCredential googleCredential = null;
-        try {
-            assert false;
-            googleCredential = oneTapClient.getSignInCredentialFromIntent(data);
-        } catch (ApiException e) {
-            e.printStackTrace();
-        }
-        String idToken = googleCredential.getGoogleIdToken();
-        if (idToken !=  null) {
-            // Got an ID token from Google. Use it to authenticate
-            // with Firebase.
-            AuthCredential firebaseCredential = GoogleAuthProvider.getCredential(idToken, null);
-            mAuth.signInWithCredential(firebaseCredential)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("TAG", "signInWithCredential:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                //updateUI(user);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("TAG", "signInWithCredential:failure", task.getException());
-                                //updateUI(null);
-                            }
-                        }
-                    });
-        }
-    }
-
-    public void createRequest(){
-        BeginSignInRequest signInRequest = BeginSignInRequest.builder()
-                .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                        .setSupported(true)
-                        // Your server's client ID, not your Android client ID.
-                        .setServerClientId(getString(R.string.default_web_client_id))
-                        // Only show accounts previously used to sign in.
-                        .setFilterByAuthorizedAccounts(true)
-                        .build())
-                .build();
-    }
 
     public void openHomeActivity(){
         Intent intent = new Intent(this, HomeActivity.class);
