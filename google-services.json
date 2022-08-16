@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "457574284601",
+    "project_id": "authentication-app-41d80",
+    "storage_bucket": "authentication-app-41d80.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457574284601:android:9f25c6fc9b2684b43bbce8",
+        "android_client_info": {
+          "package_name": "com.topurayhan.authenticationapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457574284601-4tg7p62g65skp8h6on7j6db58ifs3loe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-sBLZR-wNIzclcRIIJp8AbDaRjd7ir1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457574284601-4tg7p62g65skp8h6on7j6db58ifs3loe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
