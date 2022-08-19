@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (pass.isEmpty() || pass.length() < 8){
             Log.d("TAG", "Enter a valid email!");
-            password.setError("Enter a valid password!");
+            password.setError("Password should contain at least 8 characters!");
         }
         else {
             progressDialog.setMessage("Please wait...");

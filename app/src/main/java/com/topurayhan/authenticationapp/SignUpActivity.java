@@ -95,7 +95,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
         else if (password.isEmpty() || password.length() < 8){
             Log.d("TAG", "Enter a valid email!");
-            password1.setError("Enter a valid password!");
+            password1.setError("Password should contain at least 8 characters!");
         }
         else {
             progressDialog.setMessage("Please wait...");
